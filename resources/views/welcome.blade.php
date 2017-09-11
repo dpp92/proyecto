@@ -70,16 +70,17 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
+                        <a href="registrar">Registrar</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
+                        <!-- <a href="{{ route('register') }}">Register</a> -->
                     @endauth
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    SISTEMA DE GESTION ESCOLAR
                 </div>
 
                 <div class="links">

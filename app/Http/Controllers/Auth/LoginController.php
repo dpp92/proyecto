@@ -36,4 +36,9 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    //cambiamos el usuario de login
+    public function username(){
+        return 'dni';
+    }
 }
