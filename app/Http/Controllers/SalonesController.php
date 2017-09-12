@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\models\salones;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class SalonesController extends Controller
 {
@@ -17,7 +18,7 @@ class SalonesController extends Controller
         //
 
 
-        return view();
+        return view('app.admin.listSalones');
 
     }
 
@@ -31,9 +32,8 @@ class SalonesController extends Controller
     {
         //
 
-        $listaSalones = salones::all();
-
-        return $listaSalones;
+        $listaSalones = salones::all()->toJson();
+        return response()->json(['salon'=>$listaSalones]);
 
     }
 
@@ -60,6 +60,9 @@ class SalonesController extends Controller
     public function store(Request $request)
     {
         //
+        $listaSalones = salones::create(Request::all());
+        return $listaSalones;
+
     }
 
     /**
@@ -94,6 +97,11 @@ class SalonesController extends Controller
     public function update(Request $request, salones $salones)
     {
         //
+        $listaSalones = salones::find($id);
+        $listaSalones->done = Request::input('done');
+        $listaSalones->save();
+ 
+        return $listaSalones;
     }
 
     /**
@@ -105,5 +113,7 @@ class SalonesController extends Controller
     public function destroy(salones $salones)
     {
         //
+
+        salones::destroy($id);
     }
 }

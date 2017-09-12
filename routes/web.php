@@ -36,5 +36,5 @@ Route::resource('materia','AsignaturasController');
 
 
 
-Route::get('salon/lista','SalonesController@lista');
-Route::resource('salon','SalonesController');
+Route::get('salones/lista','SalonesController@lista');
+Route::resource('salones','SalonesController');
