@@ -33,3 +33,8 @@ Route::resource('docente','docente\docenteController');
 
 Route::get('materia/lista','AsignaturasController@index');
 Route::resource('materia','AsignaturasController');
+
+
+
+Route::get('salon/lista','SalonesController@lista');
+Route::resource('salon','SalonesController');

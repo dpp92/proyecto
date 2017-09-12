@@ -8,14 +8,38 @@ use Illuminate\Http\Request;
 class SalonesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a index of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         //
+
+
+        return view();
+
     }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function lista()
+    {
+        //
+
+        $listaSalones = salones::all();
+
+        return $listaSalones;
+
+    }
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
