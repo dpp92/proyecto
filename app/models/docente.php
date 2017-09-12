@@ -1,0 +1,13 @@
+<?php
+
+namespace App\models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class docente extends Model
+{
+    //
+    protected $table = 'docente';
+    protected $fillable =['dni_docente','titulo' ];
+
+}

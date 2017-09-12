@@ -15,11 +15,11 @@
                     @endif
                     {{-- creamos el formulario de registro --}}
 
-                    {!! Form::open(['route' => 'alumno.store', 'method' => 'post', 'role' => 'form' ]) !!}
+                    {!! Form::open(['route' => ['alumno.update',$alumno->dni_alumno], 'method' => 'patch', 'role' => 'form' ]) !!}
                             <div class="form-group">
 
                                 {!! Form::label('nombre', 'Nombre(s)' ) !!}
-                                {!! Form::text('nombre', old('nombre'),['class' => 'form-control','required' => 'true']) !!}
+                                {!! Form::text('nombre', $alumno->nombre,['class' => 'form-control','required' => 'true']) !!}
                                  @if ($errors->has('nombre'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('nombre') }}</strong>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group">
                                 {!! Form::label('apellidos', 'Apellidos') !!}
-                                {!! Form::text('apellidos', old('apellidos'), ['class' => 'form-control','required' => 'true']) !!}
+                                {!! Form::text('apellidos', $alumno->apellidos, ['class' => 'form-control','required' => 'true']) !!}
                                 @if ($errors->has('apellidos'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('apellidos') }}</strong>
@@ -37,7 +37,7 @@
                             </div>
                             <div class="form-group">
                                 {!! Form::label('dni', 'Matricula') !!}
-                                {!! Form::text('dni', old('dni'), ['class' => 'form-control', 'required' => 'true','min-length' =>'5']) !!}
+                                {!! Form::text('dni', $alumno->dni, ['class' => 'form-control', 'required' => 'true','min-length' =>'5']) !!}
                                 @if ($errors->has('dni'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('dni') }}</strong>
@@ -46,22 +46,10 @@
                             </div>
                             <div class="form-group">
                                 {!! Form::label('telefono','Telefóno') !!}
-                                {!! Form::text('telefono', old('telefono') , ['class' => 'form-control','placeholder' => '000-000-0000']) !!}
+                                {!! Form::text('telefono',$alumno->telefono , ['class' => 'form-control','placeholder' => '000-000-0000']) !!}
                             </div>
                             
-                            <div class='form-inline'>
-                                <div class="form-group ">
-                                    {!! Form::label('grado', 'Grado a inscribir') !!}
-                                 
-                                    {!! Form::select('grado', $grados) !!}
-
-                                </div>
-                                <div class="form-group ">
-                                    {!! Form::label('password', 'Contraseña') !!}
-                                    {!! Form::password('password', old('password'), ['class' => 'form-control','required' => 'true']) !!}
-                                </div>
-
-                            </div>
+                            
                                 <div class="form-group">
                                     <a href="{{route('alumno.index')}}" class="btn btn-danger">Cancelar</a>
                                     <button type="submit" class="btn btn-primary">Guardar</button>

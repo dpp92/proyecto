@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\models\asignaturas;
+use DB;
+use App\models\materias;
+use App\models\docente;
 use Illuminate\Http\Request;
 
 class AsignaturasController extends Controller
@@ -15,6 +17,14 @@ class AsignaturasController extends Controller
     public function index()
     {
         //
+          $materias = DB::table('materias')
+        ->join('docente','docente.id','=','materias.id_docente')
+        ->join('users','users.dni','=','docente.dni_docente')
+        ->get();
+
+        return view('app.admin.listmateria',[
+            'materias' => $materias
+            ]);
     }
 
     /**
@@ -25,6 +35,13 @@ class AsignaturasController extends Controller
     public function create()
     {
         //
+        $docentes =  docente::join('users','docente.dni_docente','=','users.dni')
+        ->pluck('users.nombre','docente.id')
+        ->all();
+
+        return view('app.admin.materianuevo',[
+            'docentes' => $docentes
+            ]);
     }
 
     /**
@@ -36,15 +53,25 @@ class AsignaturasController extends Controller
     public function store(Request $request)
     {
         //
+        $mate = new materias;
+
+        $mate->create(['clave_materia'=> $request->clave_m,
+                          'materia' => $request->materia,
+                        'hora_inicio' => $request->horai,
+                        'hora_fin' => $request->horaf,
+                        'id_docente' => $request->docente ]);
+
+            return redirect('materia');
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\models\asignaturas  $asignaturas
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(asignaturas $asignaturas)
+    public function show($id)
     {
         //
     }
@@ -52,34 +79,54 @@ class AsignaturasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\models\asignaturas  $asignaturas
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(asignaturas $asignaturas)
+    public function edit($id)
     {
         //
+         $docentes =  docente::join('users','docente.dni_docente','=','users.dni')
+        ->pluck('users.nombre','docente.id')
+        ->all();
+
+        $materias = materias::all()->where('clave_materia','=',$id)->first();
+        return view('app.admin.editM',[
+            'materias' => $materias,
+            'docentes' => $docentes            ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\models\asignaturas  $asignaturas
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, asignaturas $asignaturas)
+    public function update(Request $request, $id)
     {
         //
+        DB::table('materias')
+        ->where('clave_materia',$id)
+        ->update([
+            'materia' => $request->clave_m,
+            'hora_inicio' => $request->horai,
+            'hora_fin'  => $request->horaf,
+            'id_docente' => $request->docente
+            ]);
+
+        return redirect('materia');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\models\asignaturas  $asignaturas
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(asignaturas $asignaturas)
+    public function destroy($id)
     {
         //
     }
+   
 }

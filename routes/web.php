@@ -21,9 +21,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 
-Route::get('alumno/lista','alumnos\alumnosController@lista');
+Route::get('alumno/lista','alumnos\alumnosController@index');
 Route::resource('alumno','alumnos\alumnosController');
 
 
 Route::resource('admin','admin\adminController');
+
+Route::get('docente/lista','docente\docenteController@index');
 Route::resource('docente','docente\docenteController');
+
+
+Route::get('materia/lista','AsignaturasController@index');
+Route::resource('materia','AsignaturasController');

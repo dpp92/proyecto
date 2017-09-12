@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Registrar Alumno</div>
+                <div class="panel-heading">Registro Docente</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -15,7 +15,7 @@
                     @endif
                     {{-- creamos el formulario de registro --}}
 
-                    {!! Form::open(['route' => 'alumno.store', 'method' => 'post', 'role' => 'form' ]) !!}
+                    {!! Form::open(['route' => 'docente.store', 'method' => 'post', 'role' => 'form' ]) !!}
                             <div class="form-group">
 
                                 {!! Form::label('nombre', 'Nombre(s)' ) !!}
@@ -36,7 +36,7 @@
                                 @endif
                             </div>
                             <div class="form-group">
-                                {!! Form::label('dni', 'Matricula') !!}
+                                {!! Form::label('dni', 'DNI Docente') !!}
                                 {!! Form::text('dni', old('dni'), ['class' => 'form-control', 'required' => 'true','min-length' =>'5']) !!}
                                 @if ($errors->has('dni'))
                                     <span class="help-block">
@@ -51,19 +51,24 @@
                             
                             <div class='form-inline'>
                                 <div class="form-group ">
-                                    {!! Form::label('grado', 'Grado a inscribir') !!}
+                                    {!! Form::label('titulo', 'Titulo') !!}
                                  
-                                    {!! Form::select('grado', $grados) !!}
+                                {!! Form::text('titulo', old('titulo') , ['class' => 'form-control']) !!}
 
                                 </div>
                                 <div class="form-group ">
                                     {!! Form::label('password', 'Contraseña') !!}
                                     {!! Form::password('password', old('password'), ['class' => 'form-control','required' => 'true']) !!}
+                                    @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
                                 </div>
 
                             </div>
                                 <div class="form-group">
-                                    <a href="{{route('alumno.index')}}" class="btn btn-danger">Cancelar</a>
+                                    <a href="{{route('docente.index')}}" class="btn btn-danger">Cancelar</a>
                                     <button type="submit" class="btn btn-primary">Guardar</button>
 
                                 </div>

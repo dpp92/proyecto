@@ -15,6 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+
         'nombre', 'dni', 'password','apellidos','telefono','tipo'
     ];
 
@@ -27,5 +28,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-        
+
+    // if (Auth::user()->tipo == '1') {
+    //     # code...
+    // }
 }

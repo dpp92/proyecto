@@ -26,7 +26,16 @@ class alumnosController extends Controller
     public function index()
     {
         //
-        return 'hola we';
+
+        $listAlumno = DB::table('users')
+        ->leftjoin('alumnos','alumnos.dni_alumno','=','users.dni')
+        ->where('users.tipo','=',$this->tipoUsuario)
+        ->get();
+
+       return view('app.admin.listalumno',[ 
+                    'lista' => $listAlumno
+                ]);
+        
 
         
     }
@@ -79,8 +88,7 @@ class alumnosController extends Controller
         $alumnoN->create(['dni_alumno' => $request->dni,
                           'grado' => $request->grado ]);
 
-        return route('alumno.show',$request->dni);
-       
+        return redirect('alumno');
 
     }
 
@@ -93,32 +101,14 @@ class alumnosController extends Controller
     public function show($id)
     {
         //
-        return ' se ha creado jeje '. $id;
+       
         
     }
 
     /**
      * Muestra la lista de usuario que tiene la escuela
      */
-    public function lista()
-    {
-        //
-        
-       // $listAlumno = User::all()
-       // ->join('alumnos','dni','=','users.dni')
-       // ->where('tipo','=',$this->tipoUsuario);
-
-        $listAlumno = DB::table('users')
-        ->leftjoin('alumnos','alumnos.dni_alumno','=','users.dni')
-        ->where('users.tipo','=','1')
-        ->get();
-
-       return view('app.admin.listalumno',[ 
-                    'lista' => $listAlumno
-                ]);
-        
-    }
-
+   
     /**
      * Show the form for editing the specified resource.
      *
@@ -127,13 +117,13 @@ class alumnosController extends Controller
      */
     public function edit($id)
     {
-        //Editar alumno
-        $editAlumno = User::all()->where('dni_alumno','=',$id)->get();
 
-        // return view('app.admin.editar',[
-        //     'alumno' => $editAlumno
-        //     ]);
-        $
+        //Editar alumno
+        $idP = User::all()->where('dni_alumno','=',$id)->first();
+
+        return view('app.admin.editA',[
+            'alumno' => $idP
+            ]);
 
     }
 
@@ -146,7 +136,19 @@ class alumnosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         //
+        $this->validate($request,[
+            'nombre' => 'min:3',
+            'apellidos' => 'min:3'
+            ]);
+
+        DB::table('users')
+        ->where('dni',$id)
+        ->update([      'nombre' => $request->nombre,
+                        'apellidos' => $request->apellidos,
+                        'telefono' => $request->telefono,
+                        'tipo' => $this->tipoUsuario ]);
+        return redirect('alumno');    
     }
 
     /**
@@ -158,5 +160,18 @@ class alumnosController extends Controller
     public function destroy($id)
     {
         //
+        //
+        DB::table('alumnos')
+        ->where('dni_alumno','=',$id)
+        ->delete();
+
+        DB::table('users')
+        ->where('dni','=',$id)
+        ->delete();
+
+
+
+        return redirect('alumno');
+
     }
 }
