@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Agregande Angular JS -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js">
+    <script type="{{ asset('js/myApp.css') }}"></script>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
