@@ -36,4 +36,17 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function username (){
+        return 'dni';
+    }
+
+    /**
+    *Sobreescribir funcion de redireccion
+    * tipo de usuario 1=>alumno, 2=> docente, 0=>admin (Solo existe un admin)
+    */
+
+    public function authenticate(){
+        
+    }
 }

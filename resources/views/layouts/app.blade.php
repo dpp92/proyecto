@@ -42,16 +42,52 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
+
+                         
+                                   
+                        <li><a href="" title=""></a></li>
                         @guest
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
+                            
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->nombre }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    {{-- Menu para usuario diferente --}}
+                                        @if (Route::has('login'))
+                                        
+                                            @auth
+                                                        @if(Auth::user()->tipo == '1')
+                                                            <li><a href="{{ url('/home') }}">Home</a>
+                                                            </li>
+                                                            <li><a href="{{ url('/home') }}">Calificaciones</a>
+                                                            </li>
+                                                            <li><a href="{{ url('/home') }}">Horarios</a>
+                                                            </li>
+
+                                                        @elseif(Auth::user()->tipo == '2')
+                                                           <li><a href="{{ url('/home') }}">Horarios</a>
+                                                            </li>
+                                                            <li><a href="{{ url('/home') }}">Promedio</a>
+                                                            </li>
+                                                        @else
+                                                            <li><a href="{{ url('/home') }}">Alumno</a>
+                                                            </li>
+                                                            <li><a href="{{ url('/home') }}">Docentes</a>
+                                                            </li>
+                                                            
+                                                        @endif
+
+                                            
+                                            @endauth
+                                         @endif
+                                    
+
+
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
