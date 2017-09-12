@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-09-2017 a las 14:19:54
+-- Tiempo de generación: 12-09-2017 a las 21:35:02
 -- Versión del servidor: 10.1.26-MariaDB
 -- Versión de PHP: 7.1.8
 
@@ -62,16 +62,18 @@ CREATE TABLE `calificaciones` (
   `id` int(11) NOT NULL,
   `calificacion` double(5,2) DEFAULT NULL,
   `dni_alumnos` varchar(120) NOT NULL,
-  `id_materias` int(11) NOT NULL
+  `id_materias` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `calificaciones`
 --
 
-INSERT INTO `calificaciones` (`id`, `calificacion`, `dni_alumnos`, `id_materias`) VALUES
-(1, 98.20, 'al1', 1),
-(2, 75.30, 'al1', 2);
+INSERT INTO `calificaciones` (`id`, `calificacion`, `dni_alumnos`, `id_materias`, `created_at`, `updated_at`) VALUES
+(1, 98.20, 'al1', 1, '2017-09-12 19:34:41', '0000-00-00 00:00:00'),
+(2, 75.30, 'al1', 2, '2017-09-12 19:34:41', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -106,16 +108,18 @@ INSERT INTO `docente` (`id`, `dni_docente`, `titulo`, `updated_at`, `created_at`
 
 CREATE TABLE `grados` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(120) DEFAULT NULL
+  `nombre` varchar(120) DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `grados`
 --
 
-INSERT INTO `grados` (`id`, `nombre`) VALUES
-(1, '1 SEMESTRE'),
-(2, '2 SEMESTRE');
+INSERT INTO `grados` (`id`, `nombre`, `updated_at`, `created_at`) VALUES
+(1, '1 SEMESTRE', '2017-09-12 19:33:20', '0000-00-00 00:00:00'),
+(2, '2 SEMESTRE', '2017-09-12 19:33:20', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -155,16 +159,18 @@ INSERT INTO `materias` (`id`, `clave_materia`, `materia`, `hora_inicio`, `hora_f
 CREATE TABLE `salones` (
   `id` int(11) NOT NULL,
   `salon` varchar(120) DEFAULT NULL,
-  `grados_id` int(11) NOT NULL
+  `grados_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `salones`
 --
 
-INSERT INTO `salones` (`id`, `salon`, `grados_id`) VALUES
-(1, 'j1', 1),
-(2, 'j2', 2);
+INSERT INTO `salones` (`id`, `salon`, `grados_id`, `created_at`, `updated_at`) VALUES
+(1, 'j1', 1, '2017-09-12 19:34:01', '0000-00-00 00:00:00'),
+(2, 'j2', 2, '2017-09-12 19:34:01', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
