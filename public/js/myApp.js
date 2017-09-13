@@ -6,10 +6,6 @@ app.config(function($interpolateProvider){
 	$interpolateProvider.endSymbol('%>');
 });
  
-
-
-
-
 app.controller('salonesController', function($scope, $http) {
  
 	$scope.salones = [];
@@ -22,9 +18,14 @@ app.controller('salonesController', function($scope, $http) {
 			url : 'salones/lista'
 		}).then(function successCallback(data, status, headers, config){
 			
-			$scope.salones = data;
+			$scope.salones = data.data;
 		    $scope.loading = false;
-		    console.log($scope.salones);
+		    // console.log($scope.salones);
+
+
+		    angular.forEach($scope.salones, function(note) {
+			    console.log(note);
+			});
 
 		},function errorCallback(response) {
 			    // called asynchronously if an error occurs
@@ -34,7 +35,8 @@ app.controller('salonesController', function($scope, $http) {
 	}
 
 	$scope.addsalones = function() {
-				$scope.loading = true;
+				
+		$scope.loading = true;
  
 		$http.post('salones', {
 			title: $scope.salones.title,
@@ -64,13 +66,14 @@ app.controller('salonesController', function($scope, $http) {
 		$scope.loading = true;
  
 		var salones = $scope.salones[index];
+		console.log($scope.salones[index]);
  
-		$http.delete('salones/' + salones.id)
-			.success(function() {
-				$scope.salones.splice(index, 1);
-					$scope.loading = false;
+		// $http.delete('salones/' + salones.id)
+		// 	.success(function() {
+		// 		$scope.salones.splice(index, 1);
+		// 			$scope.loading = false;
  
-			});;
+		// 	});
 	};
  
  
