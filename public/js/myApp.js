@@ -86,6 +86,7 @@ materiaApp.config(function($interpolateProvider){
 });
 
 materiaApp.controller('mCtrl', function ($scope,$http) {
+
 	$scope.materias = [];
 	$scope.loading = false;
  
@@ -95,6 +96,7 @@ materiaApp.controller('mCtrl', function ($scope,$http) {
 			method : 'GET',
 			url : 'materia/lista'
 		}).then(function successCallback(data, status, headers, config){
+			console.log(data.data);
 			$scope.materias = data.data.materias;
 			$scope.grados   = data.data.grados;
 			$scope.docente = data.data.docente;
@@ -102,21 +104,34 @@ materiaApp.controller('mCtrl', function ($scope,$http) {
 	},function errorCallback(response) {
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
+			    console.log(response);
 			  });
+	};
+
+	// Agregandop la function template 
+	
+
+	$scope.editM = function(index){
+		$materia = $scope.materias[index];
+		$scope.slc = angular.copy($materia);
+		console.log($scope.slc);	
+		$scope.loading = true;
 	}
+
+
 
 	$scope.addM = function(datos) {
 		$scope.loading = true;
 		$scope.reset = {};
 		console.log(datos);
-		console.log(datos.horai.getTime());
-		// $http.post('materia', datos)
-		// .then(function successCallback(data, status, headers, config){
-		// 			 console.log(data);
-		// 	},function errorCallback(response) {
-		// 	   console.log(response);
-		// 	});
-		// $scope.datos = angular.copy($scope.reset); 
+		$http.post('materia',datos )
+		.then(function successCallback(data, status, headers, config){
+					 console.log(data);
+					 $scope.datos = angular.copy($scope.reset); 
+
+		},function errorCallback(response) {
+			   alert('Error \n Revise los datos ingresados');
+		});
 	};
 
 

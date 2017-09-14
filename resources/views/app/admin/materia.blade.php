@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container" ng-app="materiaApp" ng-controller="mCtrl">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -28,12 +29,12 @@
 
                             <div class="form-group">
                                 <label for="horai">Hora inicio</label>
-                                <input type="time" name="horai" ng-model="datos.horai">
-                            </div>
+                                <input type="time" name="horai"  placeholder="HH:mm" ng-model="datos.horai" >
 
+                            </div>
                             <div class="form-group">
                                 <label for="horaf">Hora fin</label>
-                                <input type="time" name="horaf" ng-model="datos.horaf">
+                                <input type="time" name="horaf" ng-model="datos.horaf" >
                             </div>
 
                             <div class="form-group">
@@ -57,7 +58,6 @@
                         </form>
                     </div>
 
-
                     <div>
                         <h2>Lista MATERIAS</h2>
                     </div>
@@ -66,23 +66,30 @@
                             <caption>Lista de Materias</caption>
                             <thead>
                                 <tr>
-                                    <th>No.</th>
+                                    <th>Clave</th>
                                     <th>Materia</th>
                                     <th>Hora Inicio</th>
                                     <th>Hora Fin</th>
+                                    <th>Docente</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="materia in materias">
-                                    <td> <% materia.id %></td>
+
+
+                            <!-- Prueba de templates para editar  -->
+                          
+                            
+                             <tr ng-repeat="materia in materias">
+                                    <td><% materia.clave_materia %></td>
                                     <td> <% materia.materia %> </td>
                                     <td> <% materia.hora_inicio %></td>
                                     <td><% materia.hora_fin %></td>
-                                    {{-- <td><button ng-click="updateS($index)"></button></td> --}}
-                                    <td><button ng-click="deleteM($index)">Eliminar</button></td>
+                                    <td><% materia.nombre + materia.apellidos %> </td>
                                     
-                                </tr>
+                                    <td><button ng-click="editM($index)">edit</button></td>
+                                </tr> 
                             </tbody>
+
                         </table>                        
                         
                     </div>
@@ -92,4 +99,13 @@
         </div>
     </div>
 </div>
+ <tr  id="edit">
+                                    <td> <input type="text" ng-model = "slc.clave_materia "/>"  </td>
+                                    <td> <input type="text" ng-model = "slc.materia "/>            </td>
+                                    <td> <input type="text" ng-model = "slc.hora_inicio "/>         </td>
+                                    <td> <input type="text" ng-model = "slc.hora_fin "/>            </td>
+                                    <td> <input type="text" ng-model = "slc.nombre"/>               </td>
+                                    <td><button >save</button></td>
+</tr>
+
 @endsection

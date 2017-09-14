@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--Agregande Angular JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    
     <script src="{{ asset('js/myApp.js') }}"></script>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+
     
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

@@ -27,7 +27,10 @@ class materiaCtrl extends Controller
 
         $grados  = grados::all();//->pluck('nombre','id');
         $docente = DB::table('users')->join('docente','dni','=','docente.dni_docente')->get();
-        $materias = materias::all();
+        $materias = DB::table('materias')
+                    ->join('docente','materias.id_docente','=','docente.id')
+                    ->join('users','docente.dni_docente','=','users.dni')
+                    ->get();
         return response()->json(["materias" => $materias, "grados" => $grados,"docente" => $docente]);
     }
 
@@ -51,18 +54,17 @@ class materiaCtrl extends Controller
     public function store(Request $request)
     {
       
-        //$nMateria = materias::create
-        // $materiaNuevo = materias::create(array(
-        //     'clave_materia' =>  $request->clave,
-        //     'materia'       =>  $request->materia,
-        //     'hora_inicio'   =>  $request->horai,
-        //     'hora_fin'      =>  $request->horaf,
-        //     'id_docente'    =>  $request->docente,
-        //     'id_grado'      =>  $request->grado
+        $materiaNuevo = materias::create(array(
+            'clave_materia' =>  $request->clave,
+            'materia'       =>  $request->materia,
+            'hora_inicio'   =>  date("H:i:s",strtotime($request->horai)),
+            'hora_fin'      =>  date("H:i:s",strtotime($request->horaf)),
+            'id_docente'    =>  $request->docente,
+            'id_grado'      =>  $request->grado
 
-        // )); 
+        )); 
 
-        // return response()->json(["succes"=> true]);
+        return response()->json(["succes"=> true]);
 
     }
 
