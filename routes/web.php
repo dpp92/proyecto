@@ -16,7 +16,17 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
+Route::get('materia/lista','admin\materiaCtrl@lista');
+Route::resource('materia','admin\materiaCtrl');
+
+Route::get('salon/lista','admin\salonCtrl@lista');
+Route::resource('salon','admin\salonCtrl');
+
+// Route::get('maestro/lista'),'admin\docenteCtrl@lista');
 
 
