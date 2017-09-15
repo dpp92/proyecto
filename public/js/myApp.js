@@ -12,6 +12,9 @@ app.controller('sCtrl', function($scope, $http) {
 	$scope.loading = false;
  
 	$scope.init = function() {
+		$scope.add = false;
+		$scope.list= true;
+		$scope.edit = false;
 		$scope.grados = [];
 		$scope.loading = true;
 		$http({
@@ -21,12 +24,30 @@ app.controller('sCtrl', function($scope, $http) {
 			$scope.grados  = data.data.grados;
 			$scope.salones = data.data.salones;
 		    $scope.loading = false;
-		    console.log($scope.grados);
+		    console.log($scope.salones);
 		},function errorCallback(response) {
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
 			  });
 	}
+
+	$scope.show = function(i){
+		switch (i) {
+			case 1:
+				// statements_1
+				$scope.list = true;
+				$scope.add = false;
+
+				break;
+			case 2:
+				// statements_def
+				$scope.add = true;
+				$scope.list = false;
+
+				break;
+		}
+	};
+
 
 	$scope.addsalones = function(datos) {
 		$scope.loading = true;
@@ -38,20 +59,31 @@ app.controller('sCtrl', function($scope, $http) {
 			},function errorCallback(response) {
 			   console.log(response);
 			});
-		$scope.datos = angular.copy($scope.reset); 
+		$scope.datos = angular.copy($scope.reset);
+		$scope.init(); 
 	};
  
-	$scope.updateS = function(index) {
+ 	$scope.editS = function(index){
+ 			$scope.loading= true;
+			$salon = $scope.salones[index];
+			$scope.slc = $salon;
+			console.log($scope.slc);
+			$scope.loading= false;
+			$scope.edit = true; 
+ 	}
 
-		console.log(index);
-		// $scope.loading = true;
- 
-		// $http.put('salones/' + salones.id, {
-		// 	title: salones.title,
-		// 	done: salones.done
-		// }).success(function(data, status, headers, config) {
-		// 	salones = data;
-		// 		$scope.loading = false;
+	$scope.updateS = function(update) {
+
+		console.log(update);
+		$http.put('salon/'+update.id,update)
+		.then(function success(data, status, headers, config){
+				console.log(data.succes);
+				alert("Actualizacion Exitosa");
+				$scope.list  = false;
+		},function error(error){
+			console.log(error);
+		});		
+		$scope.init();
  	};
  
 	$scope.deleteS = function (index) {
@@ -74,8 +106,6 @@ app.controller('sCtrl', function($scope, $http) {
 });
 
 
-
-
 // Creamos materiaApp
 
 var materiaApp = angular.module('materiaApp', []);
@@ -91,12 +121,16 @@ materiaApp.controller('mCtrl', function ($scope,$http) {
 	$scope.loading = false;
  
 	$scope.init = function() {
+		$scope.list = false;
+		$scope.add = false;
+		$scope.edit = false;
 		$scope.loading = true;
 		$http({
 			method : 'GET',
 			url : 'materia/lista'
 		}).then(function successCallback(data, status, headers, config){
-			console.log(data.data);
+					 console.log(data);
+			
 			$scope.materias = data.data.materias;
 			$scope.grados   = data.data.grados;
 			$scope.docente = data.data.docente;
@@ -108,18 +142,24 @@ materiaApp.controller('mCtrl', function ($scope,$http) {
 			  });
 	};
 
-	// Agregandop la function template 
 	
+	$scope.show = function(i){
 
-	$scope.editM = function(index){
-		$materia = $scope.materias[index];
-		$scope.slc = angular.copy($materia);
-		console.log($scope.slc);	
-		$scope.loading = true;
+		switch (i) {
+			case 1:
+				// Lista
+				$scope.add = false;
+				$scope.list  = true; 
+				break;
+			case 2:
+				//Agregar
+				$scope.add = true;
+				$scope.list  = false;
+				$scope.edit = false; 
+				break;
+		}
+		$scope.isShown= true;
 	}
-
-
-
 	$scope.addM = function(datos) {
 		$scope.loading = true;
 		$scope.reset = {};
@@ -128,12 +168,38 @@ materiaApp.controller('mCtrl', function ($scope,$http) {
 		.then(function successCallback(data, status, headers, config){
 					 console.log(data);
 					 $scope.datos = angular.copy($scope.reset); 
-
+					 $scope.init();
 		},function errorCallback(response) {
 			   alert('Error \n Revise los datos ingresados');
 		});
+		$scope.init();
 	};
 
+	// Agregandop la function editar 
+		
+	$scope.editM = function(index){
+			$scope.loading= true;
+			$materia = $scope.materias[index];
+			$scope.slc = $materia;
+			$scope.loading= false;
+			$scope.edit = true; 
+	}
+
+
+	$scope.updateM = function(update){
+		//imprimir los datos modificados
+		console.log(update);
+		//enviar los datos a update de laravel
+		$http.put('materia/'+update.clave_materia,update)
+		.then(function success(data, status, headers, config){
+				console.log(data.succes);
+				alert("Actualizacion Exitosa");
+				$scope.list  = false;
+		},function error(error){
+			console.log(error);
+		});		
+		$scope.init();
+	}
 
 	$scope.deleteM = function (index) {
 		// body...

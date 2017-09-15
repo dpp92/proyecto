@@ -5,8 +5,9 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
+                <div class="panel-heading">Salones</div>
+                    <button ng-click="show(1)">Lista</button>
+                    <button ng-click="show(2)">Agregar</button>
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
@@ -14,7 +15,7 @@
                         </div>
                     @endif
                     <div class="form">
-                    <form name="formSalon">
+                    <form name="formSalon" ng-show="add">
                         <div class="form-group">
                             <label for="name">Nombre Salon</label>
                             <input type="text" name="name" ng-model="datos.salon">
@@ -22,7 +23,7 @@
                         <div class="form-group">
                             <label for="grado">Grado</label>
                         <select ng-model="datos.grado">
-                            <option ng-repeat="x in grados" value="<% x.id %>"> <% x.nombre %></option>
+                            <option ng-repeat="x in grados" value="<% x.id %>"> <% x.grado %></option>
                         </select>           
                         <div class="from-group">
                             <button type="submit" ng-click="addsalones(datos)">Añadir</button>
@@ -32,10 +33,7 @@
 
                 </div>
 
-                    <div>
-                        <h2>Salones</h2>
-                    </div>
-                    <div class="lista" >
+                <div class="lista" ng-show="list" >
                         <table>
                             <caption>Lista de Salones</caption>
                             <thead>
@@ -50,11 +48,25 @@
                                     <td><% salon.id %></td>
                                     <td> <% salon.salon %> </td>
                                     <td><% salon.grados_id %></td>
-                                    <td> <a href="salon/" title="Editar"> <span>Edit</span></a></td>
+                                    <td> <button ng-click="editS($index)"> Edit</button></td>
                                     <td><button ng-click="deleteS($index)">Eliminar</button></td>
                                     
                                 </tr>
                             </tbody>
+                            <tfoot ng-show="edit">
+                                <tr>
+                                    <td>
+                                        <input type="text" ng-model="slc.salon">
+                                    </td>
+                                    <td>
+                                        <select ng-model="slc.grados_id" ng-options="g.id as g.grado for g in grados"></select>
+                                        <% slc.grados_id %>
+                                    </td>
+                                    <td>
+                                        <button ng-click="updateS(slc)"></button>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>                        
                         
                     </div>

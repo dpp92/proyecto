@@ -27,10 +27,19 @@ class materiaCtrl extends Controller
 
         $grados  = grados::all();//->pluck('nombre','id');
         $docente = DB::table('users')->join('docente','dni','=','docente.dni_docente')->get();
-        $materias = DB::table('materias')
-                    ->join('docente','materias.id_docente','=','docente.id')
-                    ->join('users','docente.dni_docente','=','users.dni')
-                    ->get();
+        $materias = DB::select("select 
+                                                    mat.id,
+                                                    mat.clave_materia,
+                                                    mat.materia,
+                                                    mat.hora_inicio,
+                                                    mat.hora_fin,
+                                                    mat.id_docente,
+                                                    mat.id_grado,
+                                                    dc.dni_docente,
+                                                    us.nombre,
+                                                    us.apellidos    
+                                                        FROM 
+                                                    materias mat inner join docente dc on mat.id_docente = dc.id inner join users us on dc.dni_docente = us.dni");
         return response()->json(["materias" => $materias, "grados" => $grados,"docente" => $docente]);
     }
 
@@ -85,7 +94,7 @@ class materiaCtrl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //
     }
@@ -100,6 +109,16 @@ class materiaCtrl extends Controller
     public function update(Request $request, $id)
     {
         //
+        $materia = materias::find($request->id);
+        $materia->clave_materia = $request->clave_materia;
+        $materia->materia     = $request->materia;
+        $materia->hora_inicio = $request->hora_inicio;
+        $materia->hora_fin  = $request->hora_fin;
+        $materia->id_docente = $request->id_docente;
+        $materia->id_grado  = $request->id_grado;
+        $materia->save();
+
+        return response()->json(['succes' => true]);
     }
 
     /**

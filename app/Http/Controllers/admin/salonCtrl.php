@@ -88,6 +88,12 @@ class salonCtrl extends Controller
     public function update(Request $request, $id)
     {
         //
+        $salon = salones::find($request->id);
+        $salon->grados_id = $request->grados_id;
+        $salon->salon     = $request->salon;
+        $salon->save();
+
+        return response()->json(['succes' => true]);
     }
 
     /**

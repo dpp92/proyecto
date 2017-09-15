@@ -6,16 +6,18 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Materias</div>
 
                 <div class="panel-body">
+                    <button ng-click="show(1)">Lista</button>
+                    <button ng-click="show(2)">Agregar</button>
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
                     @endif       
 
-                    <div class="form">
+                    <div class="form" ng-show="add">
                         <form name="formMateria">
                             <div class="form-group">
                                 <label for="materia">Materia</label>
@@ -58,10 +60,8 @@
                         </form>
                     </div>
 
-                    <div>
-                        <h2>Lista MATERIAS</h2>
-                    </div>
-                    <div class="lista" >
+                    
+                    <div class="lista" ng-show="list" >
                         <table>
                             <caption>Lista de Materias</caption>
                             <thead>
@@ -87,8 +87,30 @@
                                     <td><% materia.nombre + materia.apellidos %> </td>
                                     
                                     <td><button ng-click="editM($index)">edit</button></td>
+                                    <td><button ng-click="deleteM($index)">Eliminar</button></td>
                                 </tr> 
                             </tbody>
+                            <tfoot ng-show="edit">
+                                <tr  id="edit" >
+                                    <td> <input type="text" ng-model = "slc.clave_materia " />  </td>
+                                    <td> <input type="text" ng-model = "slc.materia "/>            </td>
+                                    <td> <input type="text" ng-model = "slc.hora_inicio "/>         </td>
+                                    <td> <input type="text" ng-model = "slc.hora_fin "/>            </td>
+
+                                    <td> 
+                                    <!-- <select ng-model="slc.id_docente">
+                                         <option value="">- Select an option -</option>
+                                           <option 
+                                           ng-options = "<%d.id == slc.id_docente%>"
+                                           ng-repeat="d in docente" value="<% d.id %>"> <% d.nombre %> </option>                               
+                                         </select>-->
+
+                                        <select ng-model="slc.id_docente"   ng-options=" d.id as d.nombre  for d in docente  "  ></select>
+                                        <% slc.id_docente %>
+                                    </td>
+                                    <td><button ng-click="updateM(slc)" >save</button></td>
+                                 </tr>
+                            </tfoot>
 
                         </table>                        
                         
@@ -98,14 +120,8 @@
             </div>
         </div>
     </div>
+    
 </div>
- <tr  id="edit">
-                                    <td> <input type="text" ng-model = "slc.clave_materia "/>"  </td>
-                                    <td> <input type="text" ng-model = "slc.materia "/>            </td>
-                                    <td> <input type="text" ng-model = "slc.hora_inicio "/>         </td>
-                                    <td> <input type="text" ng-model = "slc.hora_fin "/>            </td>
-                                    <td> <input type="text" ng-model = "slc.nombre"/>               </td>
-                                    <td><button >save</button></td>
-</tr>
+ 
 
 @endsection
