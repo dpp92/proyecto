@@ -28,7 +28,7 @@ app.controller('sCtrl', function($scope, $http) {
 		},function errorCallback(response) {
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
-			  });
+		});
 	}
 
 	$scope.show = function(i){
@@ -215,4 +215,51 @@ materiaApp.controller('mCtrl', function ($scope,$http) {
 	};
 
 	$scope.init();
+});
+
+
+//app Para grados
+var gradoApp = angular.module('gradoApp', []);
+
+gradoApp.config(function($interpolateProvider){
+	$interpolateProvider.startSymbol('<%');
+	$interpolateProvider.endSymbol('%>');
+});
+
+gradoApp.controller('gCtrl', function($scope, $http) {
+	$scope.salones = [];
+	$scope.loading = false;
+ 	
+
+ 	$scope.init = function(){
+ 		$scope.list = true;
+ 		$scope.loading = true;
+ 		$scope.datos = [];
+
+ 		$http({
+			method : 'GET',
+			url : 'grado/lista'
+		}).then(function successCallback(data, status, headers, config){
+		   
+		    $scope.grados = data.data.grados;
+		     console.log(data.data.grados);
+		},function errorCallback(response) {
+			console.log(response);
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+		});
+ 	};
+
+ 	$scope.addG = function(datos){
+ 		$scope.reset = {};
+ 		console.log(datos);
+ 		$http.post('grado', datos).then(function successCallback(data){
+ 				console.log(data);
+ 		},function error(response){
+ 			console.log(response);	
+ 		});
+ 	};
+
+
+ 	$scope.init();
 });

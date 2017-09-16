@@ -27,6 +27,8 @@ Route::resource('materia','admin\materiaCtrl');
 Route::get('salon/lista','admin\salonCtrl@lista');
 Route::resource('salon','admin\salonCtrl');
 
+Route::get('grado/lista','admin\gradosCtrl@lista');
+Route::resource('grado','admin\gradosCtrl');
 // Route::get('maestro/lista'),'admin\docenteCtrl@lista');
 
 
