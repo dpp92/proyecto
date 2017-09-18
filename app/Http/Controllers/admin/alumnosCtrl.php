@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace SGE\Http\Controllers\admin;
 
 
 use DB;
 use Hash;
-use App\models\users;
-use App\models\alumno;
-use App\models\grados;
+use SGE\models\users;
+use SGE\models\alumno;
+use SGE\models\grados;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use SGE\Http\Controllers\Controller;
 
 class alumnosCtrl extends Controller
 {

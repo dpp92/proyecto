@@ -39,6 +39,7 @@ Route::resource('alumno','admin\alumnosCtrl');
 
 Route::get('docente/califica/{dni}','docente\calificacionCtrl@califica');
 Route::post('docente/calificar','docente\calificacionCtrl@calificar');
+Route::get('docente/listo/{dni}','docente\calificacionCtrl@listo');
 
 
 

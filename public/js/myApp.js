@@ -261,6 +261,7 @@ gradoApp.controller('gCtrl', function($scope, $http) {
  	};
  	$scope.addG = function(datos){
  		$scope.reset = {};
+ 		console(datos)
  		$http.post('grado',{"grado":datos.grado} ).then(function successCallback(data){
  				console.log(data);
  				$scope.add = false;
@@ -335,11 +336,15 @@ docenteApp.controller('dCtrl', function($scope, $http) {
 				// statements_1
 				$scope.lista = true;
 				$scope.add   = false; 
+				if ($scope.edit) {$scope.edit =false;} 
+
 				break;
 			case 2:
 				// statements_def
 				$scope.lista = false;
 				$scope.add   = true;
+				if ($scope.edit) {$scope.edit =false;} 
+				
 				break;
 			case 3:
 				$scope.pass = true;
@@ -392,11 +397,42 @@ docenteApp.controller('dCtrl', function($scope, $http) {
 
 docenteApp.controller('dCalif', function($scope, $http) {
 	$scope.alumnos = [];
+	$scope.califs  = [];
 	cal  = {"cal":0};
+	$calif = [];
 
+	$scope.show = function(i){
+		switch (i) {
+			case 2:
+				// 
+				$scope.edit=true;
+				$scope.calif=false;
+				break;
+			
+		}
+
+	};
+
+	$scope.init= function(dni){
+		$scope.calif=false;
+		$scope.edit=true;
+		console.log(dni);
+		$http.get('listo/'+dni)
+		.then(function successCallback(data,status){
+				$scope.califs=data.data.datos;
+				console.log($scope.califs);
+		}, function errorCallback(response){
+				console.log(response);
+		});
+	}
+
+	
+	
 
 	$scope.calificar = function(dni){
 		console.log(dni);
+		$scope.calif=true;
+		$scope.edit=false;
 
 		//function que permite recabar la relacion de alumnos materias del docente
 		$http.get('califica/'+dni)
@@ -410,22 +446,35 @@ docenteApp.controller('dCalif', function($scope, $http) {
 			console.log($scope.alumnos);
 			// $scope.alumnos.push(cal);
 			// console.log($scope.alumnos);
+
 			$scope.listas  = data.data.matgr;
 			// 	console.log(data.data.matgr);
 		},function errorCallback(response){
 			console.log(response)
 		});//fin de function $http
-
 	};
 
 	$scope.calif = function (datos){
-		console.log(datos);
-		$http.post('calificar',angular.fromJson(datos))
-		.then(function successCallback(data){
-			console.log(data.data)
-		},function errorCallback(response){
-			console.log(response);
+		// console.log(datos);
+		// $calif = new Array(datos);
+		// console.log($calif);
+		$arr = new Array();
+		$c = datos.length;
+		angular.forEach(datos, function($value,$key){
+			$arr.push($value);
+
+			$http.post('calificar',$value)
+			.then(function successCallback(data){
+				console.log(data.data)
+			},function errorCallback(response){
+				console.log(response);
+			});
 		});
+	};
+
+	$scope.updC = function(datos){
+		alert('Aun no se define si se debe actualizar');
+		console.log(datos);
 	}
 
 });
@@ -462,12 +511,15 @@ alumnoApp.controller('aCtrl', function($scope, $http) {
 			case 1:
 				// statements_1
 				$scope.lista = true;
-				$scope.add   = false; 
+				$scope.add   = false;
+				if ($scope.edit) {$scope.edit =false;} 
 				break;
 			case 2:
 				// statements_def
 				$scope.lista = false;
 				$scope.add   = true;
+				if ($scope.edit) {$scope.edit =false;} 
+
 				break;
 			case 3:
 				$scope.pass = true;

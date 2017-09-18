@@ -9,12 +9,12 @@
     
     <script src="{{ asset('js/myApp.js') }}"></script>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
-
+<script src="https://use.fontawesome.com/9ac82a5638.js"></script>
     
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>SGE</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -34,8 +34,8 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                    <a class="navbar-brand" href="{{ url('#') }}">
+                        SGE
                     </a>
                 </div>
 
@@ -78,9 +78,7 @@
                                                             </li>
 
                                                         @elseif(Auth::user()->tipo == '2')
-                                                           <li><a href="{{ url('/home') }}">Horarios</a>
-                                                            </li>
-                                                            <li><a href="{{ url('/home') }}">Promedio</a>
+                                                           <li><a href="{{ url('/docente/home') }}">Calificaciones</a>
                                                             </li>
                                                         @else
                                                             <li><a href="{{ url('alumno') }}">Alumno</a>
@@ -88,6 +86,10 @@
                                                             <li><a href="{{ url('docente') }}">Docentes</a>
                                                             </li>
                                                             <li><a href="{{ url('materia') }}">Materias</a>
+                                                            </li>
+                                                            <li><a href="{{ url('salon') }}">Salones</a>
+                                                            </li>
+                                                            <li><a href="{{ url('grado') }}">Grados</a>
                                                             </li>
                                                             
                                                         @endif

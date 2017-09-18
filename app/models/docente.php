@@ -1,6 +1,6 @@
 <?php
 
-namespace App\models;
+namespace SGE\models;
 
 use Illuminate\Database\Eloquent\Model;
 

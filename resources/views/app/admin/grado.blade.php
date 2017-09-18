@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container" ng-app="gradoApp" ng-controller="gCtrl">
+<div class="container-fluid" ng-app="gradoApp" ng-controller="gCtrl">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -24,7 +24,7 @@
                             </div>
 
                             <div class="form-group">
-                                <button ng-click="addG(datos)">Agregar</button>
+                                <button class="btn btn-primary" ng-click="addG(datos)">Agregar</button>
                             </div>
 
 
@@ -33,7 +33,7 @@
 
                     
                     <div class="lista" ng-show="list" >
-                        <table>
+                        <table class="table table-stripped">
                             <caption>Lista de Materias</caption>
                             <thead>
                                 <tr>
@@ -47,15 +47,15 @@
                             
                              <tr ng-repeat="g in grados">
                                     <td ><% g.grado %></td>
-                                    <td><button ng-click="editG($index)" >Editar</button></td>
-                                    <td><button ng-click="deleteG($index)">Eliminar</button></td>
+                                    <td><button class="btn btn-warning btn-xs" ng-click="editG($index)" ><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                        <button class="btn btn-danger btn-xs" ng-click="deleteG($index)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                                 </tr> 
                             </tbody>
                             <tfoot ng-show="edit">
                                 <tr  id="edit" >
                                     <td> <input type="text" ng-model = "slc.grado " />  </td>
                                    
-                                    <td><button ng-click="updateG(slc)" >save</button></td>
+                                    <td><button class="btn btn-success" ng-click="updateG(slc)" >Guardar</button></td>
                                  </tr>
                             </tfoot>
 

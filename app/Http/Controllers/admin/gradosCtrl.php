@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace SGE\Http\Controllers\admin;
 
-use App\models\grados;
+use SGE\models\grados;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use SGE\Http\Controllers\Controller;
 
 class gradosCtrl extends Controller
 {

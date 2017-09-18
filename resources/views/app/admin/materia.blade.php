@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container" ng-app="materiaApp" ng-controller="mCtrl">
+<div class="container-fluid" ng-app="materiaApp" ng-controller="mCtrl">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -21,39 +21,39 @@
                         <form name="formMateria">
                             <div class="form-group">
                                 <label for="materia">Materia</label>
-                                <input type="text" name="materia" ng-model="datos.materia">
+                                <input type="text" class="form-control" name="materia" ng-model="datos.materia">
                             </div>
 
                             <div class="form-group">
                                 <label for="clave">Clave Materia</label>
-                                <input type="text" name="clave" ng-model="datos.clave">
+                                <input type="text" class="form-control" name="clave" ng-model="datos.clave">
                             </div>
 
                             <div class="form-group">
                                 <label for="horai">Hora inicio</label>
-                                <input type="time" name="horai"  placeholder="HH:mm" ng-model="datos.horai" >
+                                <input type="time" class="form-control" name="horai"  placeholder="HH:mm" ng-model="datos.horai" >
 
                             </div>
                             <div class="form-group">
                                 <label for="horaf">Hora fin</label>
-                                <input type="time" name="horaf" ng-model="datos.horaf" >
+                                <input type="time"  class="form-control" name="horaf" ng-model="datos.horaf" >
                             </div>
 
                             <div class="form-group">
                                 <label for="docente">Docente</label>
-                                <select ng-model="datos.docente">
+                                <select class="form-control" ng-model="datos.docente">
                                     <option ng-repeat="d in docente" value="<% d.id %>"> <% d.nombre %> </option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="grado">Grado</label>
-                                <select ng-model="datos.grado">
-                                    <option ng-repeat="g in grados" value="<% g.id %>"> <% g.grado %></option>
+                                <select class="form-control" ng-model="datos.grado">
+                                    <option ng-repeat="g in grados"  value="<% g.id %>"> <% g.grado %></option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button ng-click="addM(datos)">Agregar</button>
+                                <button class="btn btn-primary" ng-click="addM(datos)">Agregar</button>
                             </div>
 
 
@@ -62,7 +62,7 @@
 
                     
                     <div class="lista" ng-show="list" >
-                        <table>
+                        <table class="table table-stripped">
                             <caption>Lista de Materias</caption>
                             <thead>
                                 <tr>
@@ -86,8 +86,7 @@
                                     <td><% materia.hora_fin %></td>
                                     <td><% materia.nombre + materia.apellidos %> </td>
                                     
-                                    <td><button ng-click="editM($index)">edit</button></td>
-                                    <td><button ng-click="deleteM($index)">Eliminar</button></td>
+                                    <td><button class="btn btn-warning btn-xs" ng-click="editM($index)"><i class="fa fa-pencil" aria-hidden="true"></i></button><button class="btn btn-danger btn-xs" ng-click="deleteM($index)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                                 </tr> 
                             </tbody>
                             <tfoot ng-show="edit">
@@ -106,9 +105,9 @@
                                          </select>-->
 
                                         <select ng-model="slc.id_docente"   ng-options=" d.id as d.nombre  for d in docente  "  ></select>
-                                        <% slc.id_docente %>
+                                        
                                     </td>
-                                    <td><button ng-click="updateM(slc)" >save</button></td>
+                                    <td><button class="btn btn-succes" ng-click="updateM(slc)" >Guardar</button></td>
                                  </tr>
                             </tfoot>
 

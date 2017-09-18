@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\docente;
+namespace SGE\Http\Controllers\docente;
 
 use DB;
-use App\models\calificaciones;
+use SGE\models\calificaciones;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use SGE\Http\Controllers\Controller;
 
 class calificacionCtrl extends Controller
 {
@@ -41,17 +41,24 @@ class calificacionCtrl extends Controller
 
     public function calificar(Request $request){
         
-        // $calif = calificaciones::insert(json_decode($request));
-       
-        // foreach ($request as $key => $value) {
-        //     # code...
-        //     $calificaciones = new calificaciones;
-        //     $calificaciones->calificacion = $key->cal;
-        //     $calificaciones->dni_alumnos   = $key->dni_alumno;
-        //     $calificaciones->id_materias  = $key->id_materia;
-        //     $calificaciones->id_docente   = $key->dni_docente;
-        //     $calificaciones->save();
-        // }
+            $calificaciones = new calificaciones;
+            $calificaciones->calificacion = $request->cal;
+            $calificaciones->dni_alumnos   = $request->dni_alumno;
+            $calificaciones->id_materias  = $request->id_materia;
+            $calificaciones->id_docente   = $request->dni_docente;
+            $calificaciones->save();
+        
+    }
 
+    public function listo ($dni_docente){
+        $listos = DB::table('calificaciones as cl')
+        ->join('users as usr','usr.dni','=','cl.dni_alumnos')
+        ->join('materias as mt','mt.id','=','cl.id_materias')
+        ->join('grados as gr','gr.id','=','mt.id_grado')
+        ->select('cl.dni_alumnos','usr.nombre','usr.apellidos','cl.calificacion','gr.id','gr.grado','mt.clave_materia','mt.materia')
+        ->where('cl.id_docente','=',$dni_docente)
+        ->get();
+
+        return response()->json(["datos"=>$listos]);
     }
 }

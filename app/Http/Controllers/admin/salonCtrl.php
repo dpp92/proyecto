@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace SGE\Http\Controllers\admin;
 
 use DB;
-use App\models\salones;
-use App\models\grados;
+use SGE\models\salones;
+use SGE\models\grados;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use SGE\Http\Controllers\Controller;
 
 class salonCtrl extends Controller
 {

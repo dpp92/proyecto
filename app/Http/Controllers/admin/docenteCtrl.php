@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace SGE\Http\Controllers\admin;
 
 use DB;
-use App\models\users;
-use App\models\docente;
-use App\models\materias;
+use Hash;
+use SGE\models\users;
+use SGE\models\docente;
+use SGE\models\materias;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use SGE\Http\Controllers\Controller;
 
 class docenteCtrl extends Controller
 {
