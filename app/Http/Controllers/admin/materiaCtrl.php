@@ -28,18 +28,19 @@ class materiaCtrl extends Controller
         $grados  = grados::all();//->pluck('nombre','id');
         $docente = DB::table('users')->join('docente','dni','=','docente.dni_docente')->get();
         $materias = DB::select("select 
-                                                    mat.id,
-                                                    mat.clave_materia,
-                                                    mat.materia,
-                                                    mat.hora_inicio,
-                                                    mat.hora_fin,
-                                                    mat.id_docente,
-                                                    mat.id_grado,
-                                                    dc.dni_docente,
-                                                    us.nombre,
-                                                    us.apellidos    
-                                                        FROM 
-                                                    materias mat inner join docente dc on mat.id_docente = dc.id inner join users us on dc.dni_docente = us.dni");
+                                    mat.id,
+                                    mat.clave_materia,
+                                    mat.materia,
+                                    mat.hora_inicio,
+                                    mat.hora_fin,
+                                    mat.id_docente,
+                                    mat.id_grado,
+                                    dc.dni_docente,
+                                    us.nombre,
+                                    us.apellidos    
+                                FROM 
+                                    materias mat inner join docente dc on mat.id_docente = dc.id inner join users us on dc.dni_docente = us.dni");
+        
         return response()->json(["materias" => $materias, "grados" => $grados,"docente" => $docente]);
     }
 
